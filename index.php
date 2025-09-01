@@ -1,3 +1,4 @@
+
 <?php
-echo "Hello World" ;
+include "Register-Login/register.php";
 ?>
