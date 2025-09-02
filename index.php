@@ -1,4 +1,3 @@
-
 <?php
-include "Register-Login/register.php";
+require_once __DIR__ . "/routes.php";
 ?>
