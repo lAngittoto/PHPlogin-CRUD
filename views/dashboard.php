@@ -1,16 +1,12 @@
 <?php
 session_start();
 
-// -----------------------------
-// 1. SESSION SECURITY
-// -----------------------------
-// Redirect to login if session is missing
 if (!isset($_SESSION['username'])) {
     header("Location: ../index.php?page=login");
     exit;
 }
 
-// Optional: check IP & user agent to prevent hijacking
+
 if (!isset($_SESSION['user_agent'])) {
     $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
 } elseif ($_SESSION['user_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
@@ -20,9 +16,6 @@ if (!isset($_SESSION['user_agent'])) {
     exit;
 }
 
-// -----------------------------
-// 2. CACHE PREVENTION
-// -----------------------------
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -30,16 +23,13 @@ header("Expires: 0");
 
 ob_start();
 
-// -----------------------------
-// 3. PAGE CONTENT INCLUSION
-// -----------------------------
 $title = "Dashboard";
 $page = $_GET['page'] ?? '';
 $allowedPages = ['create', 'read', 'update', 'delete'];
 $contentPage = '';
 
 if (in_array($page, $allowedPages)) {
-    // Build safe file path
+
     $contentPage = __DIR__ . '/' . $page . '.php';
     if (!file_exists($contentPage)) {
         $contentPage = '';
@@ -57,18 +47,18 @@ if (in_array($page, $allowedPages)) {
 </head>
 <body>
 <div class="w-screen min-h-screen bg-[#93ef8e]">
-    <header class="w-screen h-[100px] bg-[#08a813] flex justify-between p-10 items-center">
-        <div class="w-[800px] flex justify-between text-7xl font-extrabold text-[#93ef8e]">
+    <header class="w-screen md:h-[100px] bg-[#08a813] flex sm:flex-row flex-col gap-5 justify-between p-10 items-center overflow-hidden">
+        <div class="md:w-[800px] w-[300px]  flex justify-between md:text-7xl text-5xl font-extrabold text-[#93ef8e]">
             <h1>C</h1><h1>R</h1><h1>U</h1><h1>D</h1>
         </div>
         <a href="../models/logout.php" class="text-3xl text-[#93ef8e]">Log out</a>
     </header>
 
-    <nav class="p-10 flex justify-between w-screen">
-        <a href="dashboard.php?page=create" class="text-3xl text-[#08a813] bg-[#ffffff] px-10 py-2">CREATE</a>
-        <a href="dashboard.php?page=read" class="text-3xl text-[#08a813] bg-[#ffffff] px-10 py-2">READ</a>
-        <a href="dashboard.php?page=update" class="text-3xl text-[#08a813] bg-[#ffffff] px-10 py-2">UPDATE</a>
-        <a href="dashboard.php?page=delete" class="text-3xl text-[#08a813] bg-[#ffffff] px-10 py-2">DELETE</a>
+    <nav class="p-10 flex sm:flex-row flex-col justify-between w-screen">
+        <a href="dashboard.php?page=create" class="md:text-3xl text-2xl text-[#08a813] bg-[#ffffff] md:px-10 py-2 px-6 ">CREATE</a>
+        <a href="dashboard.php?page=read" class="md:text-3xl text-2xl text-[#08a813] bg-[#ffffff] md:px-10 py-2 px-6">READ</a>
+        <a href="dashboard.php?page=update" class="md:text-3xl text-2xl text-[#08a813] bg-[#ffffff] md:px-10 py-2 px-6">UPDATE</a>
+        <a href="dashboard.php?page=delete" class="md:text-3xl text-2xl text-[#08a813] bg-[#ffffff] md:px-10 py-2 px-6">DELETE</a>
     </nav>
 
     <main class="p-10">
@@ -84,7 +74,6 @@ if (in_array($page, $allowedPages)) {
 </div>
 
 <script>
-// Optional UX: discourage back button after logout
 window.history.forward();
 function noBack() { window.history.forward(); }
 setTimeout(noBack, 0);

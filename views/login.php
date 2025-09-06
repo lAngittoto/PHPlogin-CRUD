@@ -3,20 +3,20 @@ $title = "Login";
 ob_start();
 session_start();
 
-// Check if there was a login error
+
 $errorMessage = '';
 if(isset($_SESSION['login_error'])){
     $errorMessage = $_SESSION['login_error'];
-    unset($_SESSION['login_error']); // show only once
+    unset($_SESSION['login_error']); 
 }
 ?>
 
-<div class="w-screen min-h-screen bg-[#93ef8e] flex flex-row justify-around items-center">
+<div class="w-screen min-h-screen bg-[#93ef8e] flex sm:flex-row justify-around items-center flex-col">
     <section class="text-center">
-        <h1 class="text-8xl"><span class=" text-[#272727]">Don't forget <br> your <br></span> <span class=" text-[#08a813]">Username <br> and <br> Password</span></h1>
+        <h1 class="md:text-7xl text-5xl"><span class=" text-[#272727]">Don't forget <br> your <br></span> <span class=" text-[#08a813]">Username <br> and <br> Password</span></h1>
     </section>
 
-    <div class="w-[500px] h-[600px] bg-[#08a813] rounded-4xl relative">
+    <div class="sm:w-[500px] sm:h-[600px] w-[400px] h-[500px] bg-[#08a813] rounded-4xl relative">
         <?php if($errorMessage): ?>
             <div class="fixed top-5 right-5 bg-red-500 text-white p-4 rounded shadow-lg z-50">
                 <?= $errorMessage ?>

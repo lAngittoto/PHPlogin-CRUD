@@ -1,14 +1,13 @@
 <?php
 require_once __DIR__."/dashboard.php";
 
-// kapag sinave yung edits
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['texts']) && is_array($_POST['texts'])) {
         foreach ($_POST['texts'] as $index => $newText) {
             $_SESSION['texts'][$index] = htmlspecialchars($newText);
         }
     }
-    header("Location: read.php"); // balik sa read.php after update
+    header("Location: read.php"); 
     exit;
 }
 ?>

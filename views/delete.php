@@ -2,13 +2,12 @@
 
 require_once __DIR__."/dashboard.php";
 
-// kapag may na-submit na delete request
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!empty($_POST['deleteIndex'])) {
         foreach ($_POST['deleteIndex'] as $index) {
-            unset($_SESSION['texts'][$index]); // tanggalin sa session
+            unset($_SESSION['texts'][$index]); 
         }
-        // re-index array para maayos ang keys
+      
         $_SESSION['texts'] = array_values($_SESSION['texts']);
     }
     header("Location: read.php");
